@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  # MySQL
+  db1:
+    image: mysql:5.7
+    container_name: mysql_primary
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_USER: rails
+      TZ: 'Asia/Tokyo'
+    ports:
+      - "9307:3306"
+    volumes:
+      - ./docker/master.cnf:/etc/mysql/conf.d/my.cnf
+  db2:
+    image: mysql:5.7
+    container_name: mysql_secondary
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_USER: rails
+      TZ: 'Asia/Tokyo'
+    ports:
+      - "9308:3306"
+    depends_on:
+      - db1
+    tmpfs: /var/lib/mysql
+    volumes:
+      - ./docker/slave.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/start-slave.sh:/docker-entrypoint-initdb.d/start-slave.sh
