@@ -27,3 +27,5 @@ tags
 /db/migrate/simple_status/after_migration.txt
 /.envrc
 /.rails_root_user
+/docker/db/data
+/docker/db/logs
