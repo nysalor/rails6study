@@ -3,4 +3,6 @@ character-set-server=utf8
 collation-server=utf8_general_ci
 
 log-bin=/var/log/mysql/bin-log
+general_log=1
+general_log_file=/var/log/shared/master-query.log
 server-id=1
